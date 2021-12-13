@@ -28,21 +28,24 @@ def add_data_uniq(values):
 
 # Filter to uniq name
 def uniq_filter(word):
-    result = word.replace('"', ' ').replace('(', '').replace(')', '').replace('»', '').replace('«', '')
+    result = word.replace('"', ' ').replace('(', ' ').replace(')', ' ').replace('»', '').replace('«', '')
     result = (re.sub(r'\bПубличное акционерное общество\b', 'ПАО', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bАкционерное общество\b', 'АО', result, flags=re.IGNORECASE))
+    result = (re.sub(r'\bгпб\b', 'газпромбанк', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bАкционерное\b', '', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bАвиапредприятие\b', 'АП', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bавиакомпания\b', 'АК', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bAktiengesellschaft\b', 'АО', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bпубличное\b', '', result, flags=re.IGNORECASE))
+    result = (re.sub(r'\bбанк\b', '', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bобщество\b', '', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bОП Анапа\b', '', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bDeutche\b', 'Deutsche', result, flags=re.IGNORECASE))
-    result = (re.sub(r'\b\-\b', '', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bакционерное\b', '', result, flags=re.IGNORECASE))
     result = (re.sub(r'\bРоссийские авиалинии\b', '', result, flags=re.IGNORECASE))
+    result = result.replace(' - ','')
     result = (re.sub(r'\bАО\b', '', result))
+    result = (re.sub(r'\bОАО\b', '', result))
     result = (re.sub(r'\bАП\b', '', result))
     result = (re.sub(r'\bАК\b', '', result))
     result = (re.sub(r'\bПАО\b', '', result)).rstrip().lstrip()
@@ -50,7 +53,7 @@ def uniq_filter(word):
     return(result)
 
 # Excel extract
-risks = pd.read_excel('risks.xlsx', skiprows=[0], sheet_name="3 q 2021")
+risks = pd.read_excel('risks.xlsx', skiprows=[0], sheet_name="1q 2021")
 
 # Agent filter
 while not risks.empty:
@@ -67,14 +70,6 @@ while not risks.empty:
             add_data(values)
             risks = risks.drop(index)
     data = (uniq_id, list_names)
-    print(list_names)
     add_data_uniq(data)
 
-# Dynamic graph
-# ax = plt.gca()
-# back.plot(kind='line', figsize=(40, 10), y='Сумма, руб.', x='Срок платежа', ax=ax, color='red')
-# ax.set_xlabel('Срок платежа')
-# ax.set_ylabel('Задолженость рубли')
-# plt.title('Динамика задолжености контрагента')
-# plt.show()
 

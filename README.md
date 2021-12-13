@@ -54,5 +54,18 @@ Then select the one sheet you need in main.py
 risks = pd.read_excel('risks.xlsx', skiprows=[0], sheet_name="1q 2021")
 ```
 
-
 Then run main.py
+
+### Dynamic graph usage
+Again edit your connection
+```python
+connection = psycopg2.connect(database="bdname", user="username",
+                              password="password", host="localhost", port="5432")
+```
+After this enter your required uniq_id in sql command
+```python
+back = pd.read_sql('select * from "Main_excel" where uniq_id=\'cdd4e6ef-99a9-4892-98e1-4b187f93ff29\'', con=connection)
+```
+
+###GRAPHS
+![example_graph.png](example_graph.png)
