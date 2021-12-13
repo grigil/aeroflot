@@ -51,7 +51,6 @@ def uniq_filter(word):
 
 # Excel extract
 risks = pd.read_excel('risks.xlsx', skiprows=[0], sheet_name="3 q 2021")
-back = risks[0:50]
 
 # Agent filter
 while not risks.empty:
