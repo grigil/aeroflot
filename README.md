@@ -67,5 +67,5 @@ After this enter your required uniq_id in sql command
 back = pd.read_sql('select * from "Main_excel" where uniq_id=\'cdd4e6ef-99a9-4892-98e1-4b187f93ff29\'', con=connection)
 ```
 
-###GRAPHS
+###GRAPH for ВТБ БАНК
 ![example_graph.png](example_graph.png)
